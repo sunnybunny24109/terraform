@@ -9,7 +9,7 @@ provider "aws" {
 
 resource "aws_security_group" "terraform_sg" {
   name        = "terraform-security-group"
-  description = "Allow SSH and HTTP access"
+  description = "Allow SSH HTTP HTTPS"
 
   ingress {
     description = "SSH"
@@ -23,6 +23,14 @@ resource "aws_security_group" "terraform_sg" {
     description = "HTTP"
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTPS"
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
